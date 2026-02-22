@@ -1,0 +1,19 @@
+# Personal vault data — never commit
+Journal/
+team-members/
+Stakeholders/
+Candidates/
+Projects/
+Goals/
+Weekly Prep/
+staff-meetings/
+Templates/
+
+# Secrets
+.env
+
+# Obsidian config (machine-specific)
+.obsidian/
+
+# macOS
+.DS_Store
