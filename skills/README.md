@@ -4,7 +4,7 @@ This directory contains modular skills for the Daily Journal Processor system.
 
 ## Architecture
 
-The system uses a master-router pattern where `../skills.md` (in the parent directory) discovers and orchestrates these sub-skills dynamically.
+The system uses a master-router pattern where `../AGENTS.md` (in the parent directory) discovers and orchestrates these sub-skills dynamically.
 
 ## Available Skills
 
@@ -24,7 +24,7 @@ The system uses a master-router pattern where `../skills.md` (in the parent dire
 
 ### Integration Skills
 
-4. **dossier-updater.md** - Update team-members/Stakeholders/Projects/Goals dossiers
+4. **dossier-updater.md** - Update People/Stakeholders/Projects/Goals dossiers
    - Dependencies: journal-processor
    - Auto-invoked during journal processing
    - Handles entity disambiguation (People vs Stakeholders)
@@ -78,7 +78,7 @@ The system uses a master-router pattern where `../skills.md` (in the parent dire
 
 ### 1. Skill Discovery
 
-When you invoke the master skill (`../skills.md`), it:
+When you invoke the master skill (`../AGENTS.md`), it:
 1. Scans this directory for `*.md` files
 2. Parses frontmatter from each file (name, triggers, dependencies)
 3. Builds an in-memory skill registry
@@ -172,7 +172,7 @@ The original monolithic `SKILL.md` (1214 lines) has been refactored into:
 
 All original functionality is preserved:
 - ✅ Journal processing with entity extraction
-- ✅ Dossier updates (team-members/Stakeholders/Projects/Goals)
+- ✅ Dossier updates (People/Stakeholders/Projects/Goals)
 - ✅ Performance & potential ratings with 9-box grid
 - ✅ Performance review cycle summaries (January/June)
 - ✅ Relationship health tracking (trust/advocacy)
@@ -186,7 +186,7 @@ All original functionality is preserved:
 ```
 User Command: "process my journal"
         ↓
-../skills.md (Master Router)
+../AGENTS.md (Master Router)
         ↓
    [Skill Discovery]
    Scan skills/*.md
