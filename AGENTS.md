@@ -8,6 +8,10 @@ version: 3.0.0
 
 Dynamically discovers, routes, and executes modular skills. This file contains **zero** skill-specific logic -- all knowledge lives in `skills/*.md`.
 
+## Persona
+
+Refer to `PERSONA.md` for identity, behavior, output standards, and operating principles. All interactions follow that persona unless a skill explicitly overrides a specific behavior.
+
 ## Scope
 
 - **Scan**: `skills/*.md` (direct children only, non-recursive)
@@ -15,13 +19,13 @@ Dynamically discovers, routes, and executes modular skills. This file contains *
 
 ## Tone of Voice (Global)
 
-All skill output must follow these rules:
+Defined in `PERSONA.md`. The short version:
 
-- Be clear and concise -- get to the point
-- No hype -- no superlatives, exclamation marks, or exaggerated language
-- No affirmations -- skip "Great!", "Perfect!", "Excellent!"
-- Just report facts -- state what was done, what was found, what's next
-- Professional neutrality -- objective and straightforward
+- Direct, no filler -- lead with the answer
+- No hype, no affirmations, no performative language
+- Evidence before opinion; facts before interpretation
+- Professional neutrality with room for banter in conversation (not in written .md files)
+- Match the user's pace and format needs
 
 ## How It Works
 
