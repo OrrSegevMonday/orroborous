@@ -9,7 +9,13 @@ Named after the ouroboros: the system feeds itself.
 ## What you can do
 
 | Command | What happens |
-|---|---|
+|---
+
+## Quick start
+
+After cloning and opening in Cursor, type `onboard me` in the chat. The interactive setup walks you through identity, connectors, team, and projects in about 5 minutes.
+
+---|
 | `"process my journal"` | Parses today's entry, updates dossiers, extracts action items, creates Monday tasks, schedules follow-ups |
 | `"show my action items"` | Surfaces all open tasks across all journals, grouped by urgency |
 | `"show team ratings"` | Displays 9-box performance/potential grid for your direct reports |
@@ -44,14 +50,14 @@ Orroborous has three layers:
                      │ loads
 ┌────────────────────▼────────────────────────┐
 │  Skill System                               │
-│  skills.md  ←  master router               │
+│  AGENTS.md  ←  master router               │
 │  skills/*.md ← 12 modular skills           │
 └─────────────────────────────────────────────┘
 ```
 
 ### Skill system
 
-`skills.md` is a master orchestrator. On every invocation it:
+`AGENTS.md` is a master orchestrator. On every invocation it:
 
 1. **Discovers** all `skills/*.md` files by reading their YAML frontmatter
 2. **Routes** your command to the matching skill(s) by fuzzy-matching triggers
@@ -154,7 +160,7 @@ Each skill is a self-contained markdown file with frontmatter metadata and plain
 
 ```
 orroborous/
-├── skills.md              # Master skill orchestrator (start here)
+├── AGENTS.md              # Master skill orchestrator (start here)
 ├── skills/                # 12 modular skill definitions
 ├── Journal/               # Daily journal entries (gitignored)
 ├── team-members/          # Direct report dossiers (gitignored)

@@ -8,6 +8,12 @@ version: 3.0.0
 
 Dynamically discovers, routes, and executes modular skills. This file contains **zero** skill-specific logic -- all knowledge lives in `skills/*.md`.
 
+## Bootstrap Check
+
+Before doing anything else, read `PERSONA.md`. If it contains the literal string `[YOUR_NAME]`,
+the system has not been configured. Immediately invoke the `onboarding` skill and do nothing else
+until onboarding is complete.
+
 ## Persona
 
 Refer to `PERSONA.md` for identity, behavior, output standards, and operating principles. All interactions follow that persona unless a skill explicitly overrides a specific behavior.
