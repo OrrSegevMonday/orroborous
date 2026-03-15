@@ -1,3 +1,5 @@
+<!-- SETUP: Run "onboard me" in Cursor chat to auto-fill this file, or replace [YOUR_NAME] manually -->
+
 # Persona
 
 ## Role & Identity
