@@ -45,7 +45,7 @@ On every invocation:
    - `description` -- what it does
    - `triggers` -- user commands that invoke it (list of strings)
    - `dependencies` -- other skill names this depends on (list)
-   - `auto_invoke` -- if `true`, run automatically when a parent skill triggers it
+   - `auto_invoke` -- if `true`, run automatically when a parent skill triggers it; if `false` or absent (default), only run when explicitly triggered or declared as a dependency
    - `version`
 3. Build an in-memory skill registry (name → metadata + filepath)
 
