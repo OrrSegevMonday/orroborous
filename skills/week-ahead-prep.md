@@ -7,7 +7,7 @@ triggers:
   - "plan my week"
   - "sunday prep"
 dependencies: [action-tracker, dossier-updater, calendar-follow-up]
-version: 1.1.0
+version: 1.2.0
 ---
 
 # Week-Ahead Prep
@@ -41,12 +41,27 @@ Calculate the upcoming week:
 
 ### Step 2: Fetch Calendar Data (Strategic Meetings Only)
 
-**Access Google Calendar:**
-- Use cursor-browser-extension MCP to navigate to:
-  `YOUR_CALENDAR_URL`
-- Parse meetings for the upcoming week
+**Calendar Access:**
 
-**Strategic Filtering:**
+Direct Google Calendar access may not be available in all environments (company firewalls, browser restrictions, admin whitelists, etc.).
+
+**Preferred approach -- ask the user to paste:**
+
+Prompt the user exactly once at the start of the skill run:
+
+> "Paste your calendar for the week (copy from Google Calendar or share the event list) and I'll integrate it. Or type 'skip' to proceed without calendar data."
+
+If the user pastes calendar content:
+- Parse it in whatever format they provide (plain text, copy-paste from Google Calendar, list of meetings)
+- Extract: title, day, time, attendees
+- Apply strategic filtering below and proceed
+
+If the user types "skip" or provides nothing:
+- Skip this section entirely
+- Note in output: "Calendar not provided -- add meetings manually or paste next time"
+- Do NOT show an error or failure message
+
+**Strategic Filtering (when calendar data is available):**
 
 Apply these filters to show ONLY important meetings:
 
@@ -297,16 +312,16 @@ Prep: From your [date] journal - [relevant context]
 
 ## Edge Cases
 
-### No Calendar Access
-If browser automation fails:
+### No Calendar Data Provided
+If user skips or doesn't paste calendar:
 ```
 ━━━ THIS WEEK'S CALENDAR ━━━
 
-Calendar access unavailable (browser automation error).
-Manual review: YOUR_CALENDAR_URL
+No calendar data provided.
+Paste your week's meetings into the chat to integrate them.
 
-Continue with other sections...
 ```
+Do NOT show an error. Continue with all other sections normally.
 
 ### No Action Items Due
 ```
@@ -371,6 +386,6 @@ This creates a historical archive of weekly plans for:
 - `Journal/*.md` - recent patterns and risks
 
 **Tools it uses:**
-- cursor-browser-extension MCP - for calendar access
+- cursor-ide-browser MCP - for calendar access
 - File system reads - for dossier scanning
 - Date calculations - for week ranges and overdue logic

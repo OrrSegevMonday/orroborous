@@ -1,6 +1,6 @@
 # Orroborous
 
-An AI-powered chief-of-staff system for managers, built on [Obsidian](https://obsidian.md) and [Cursor](https://cursor.sh). It turns your daily journal into a living operational brain — tracking your team, stakeholders, projects, and commitments so you don't have to hold it all in your head.
+An AI-powered chief-of-staff system for managers, built on [Obsidian](https://obsidian.md) and powered by [Cursor](https://cursor.sh) or [Claude Code](https://docs.anthropic.com/en/docs/claude-code). It turns your daily journal into a living operational brain — tracking your team, stakeholders, projects, and commitments so you don't have to hold it all in your head.
 
 Named after the ouroboros: the system feeds itself.
 
@@ -26,6 +26,7 @@ After cloning and opening in Cursor, type `onboard me` in the chat. The interact
 | `"show candidates"` | Lists all interview candidates with status and recommendation scores |
 | `"sync tasks"` | Bi-directional sync between journal action items and Monday.com |
 | `"schedule follow-up with [person]"` | Creates a calendar reminder in Monday (syncs to Google Calendar) |
+| `"reply to slack"` | Triages recent Slack mentions, drafts replies in your tone, sends after confirmation |
 | `"performance review summary"` | Generates a full review cycle summary with 9-box, trends, and recommendations |
 
 ---
@@ -43,7 +44,7 @@ Orroborous has three layers:
 └────────────────────┬────────────────────────┘
                      │ reads / writes
 ┌────────────────────▼────────────────────────┐
-│  Cursor AI IDE                              │
+│  Cursor or Claude Code                      │
 │  Reads your vault, executes skills,         │
 │  calls external APIs                        │
 └────────────────────┬────────────────────────┘
@@ -51,7 +52,7 @@ Orroborous has three layers:
 ┌────────────────────▼────────────────────────┐
 │  Skill System                               │
 │  AGENTS.md  ←  master router               │
-│  skills/*.md ← 12 modular skills           │
+│  skills/*.md ← 13 modular skills           │
 └─────────────────────────────────────────────┘
 ```
 
@@ -67,7 +68,7 @@ Orroborous has three layers:
 
 Each skill is a self-contained markdown file with frontmatter metadata and plain-English instructions. New skills are auto-discovered — no changes to the router needed.
 
-### The 12 skills
+### The 13 skills
 
 | Skill | What it does |
 |---|---|
@@ -83,12 +84,13 @@ Each skill is a self-contained markdown file with frontmatter metadata and plain
 | `staff-meeting` | Interactive executive briefing that reviews all dimensions and writes decisions back to files |
 | `win-tracker` | Detects team wins in journals and drafts recognition messages |
 | `interview-processor` | Processes interview notes into structured candidate scorecards |
+| `slack-reply` | Drafts and sends Slack replies with triage, tone matching, and confirmation flow |
 
 ### External integrations
 
 - **Monday.com MCP** — task creation, status sync, and calendar events
+- **Slack MCP** — read mentions, draft replies, send messages with confirmation
 - **Google Calendar** — via Monday's Google Calendar integration on a dedicated board
-- **Cursor browser extension** — for reading your Google Calendar in week-ahead prep
 
 ---
 
@@ -97,7 +99,7 @@ Each skill is a self-contained markdown file with frontmatter metadata and plain
 ### Prerequisites
 
 1. **[Obsidian](https://obsidian.md)** — free, available for macOS, Windows, Linux, iOS, Android
-2. **[Cursor](https://cursor.sh)** — AI-powered IDE (free tier available)
+2. **[Cursor](https://cursor.sh)** or **[Claude Code](https://docs.anthropic.com/en/docs/claude-code)** — either works; pick whichever you prefer
 3. A **Monday.com** account (for task sync and calendar features — optional but recommended)
 
 ### Steps
@@ -112,9 +114,9 @@ Each skill is a self-contained markdown file with frontmatter metadata and plain
    - Open Obsidian → "Open folder as vault" → select the `orroborous` folder
    - This gives you the file structure, wiki-linking, and template support
 
-3. **Open in Cursor**
-   - Open Cursor → File → Open Folder → select the same `orroborous` folder
-   - Cursor reads the vault files directly
+3. **Open in Cursor or Claude Code**
+   - **Cursor**: File → Open Folder → select the `orroborous` folder. Then type `onboard me` in the chat.
+   - **Claude Code**: `cd orroborous && claude` — `CLAUDE.md` auto-loads the persona and orchestrator. Type `onboard me` to start.
 
 4. **Set up your environment**
    ```bash
@@ -149,7 +151,7 @@ Each skill is a self-contained markdown file with frontmatter metadata and plain
 
 7. **Start the AI**
 
-   Open Cursor's chat panel (pointed at your vault) and type:
+   In Cursor's chat panel or Claude Code CLI, type:
    ```
    process my journal
    ```
@@ -160,8 +162,9 @@ Each skill is a self-contained markdown file with frontmatter metadata and plain
 
 ```
 orroborous/
-├── AGENTS.md              # Master skill orchestrator (start here)
-├── skills/                # 12 modular skill definitions
+├── AGENTS.md              # Master skill orchestrator (Cursor entry point)
+├── CLAUDE.md              # Claude Code entry point (auto-loaded)
+├── skills/                # 13 modular skill definitions
 ├── Journal/               # Daily journal entries (gitignored)
 ├── team-members/          # Direct report dossiers (gitignored)
 ├── Stakeholders/          # Stakeholder dossiers (gitignored)

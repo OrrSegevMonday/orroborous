@@ -6,6 +6,8 @@ This directory contains modular skills for the Daily Journal Processor system.
 
 The system uses a master-router pattern where `../AGENTS.md` (in the parent directory) discovers and orchestrates these sub-skills dynamically.
 
+**Compatible with both Cursor and Claude Code.** Cursor loads via `@AGENTS.md`; Claude Code auto-loads via `CLAUDE.md` in the repo root.
+
 ## Available Skills
 
 ### Core Skills (No Dependencies)
@@ -73,6 +75,13 @@ The system uses a master-router pattern where `../AGENTS.md` (in the parent dire
     - Dependencies: action-tracker, dossier-updater, week-ahead-prep
     - Triggers: "staff meeting", "chief of staff briefing", "executive briefing", "staff sync"
     - Interactive comprehensive briefing across all organizational dimensions
+
+### Communication Skills
+
+13. **slack-reply.md** - Draft and send Slack replies with confirmation before sending
+    - Dependencies: None
+    - Triggers: "reply to slack", "check my slack", "draft a reply", "answer slack"
+    - Triages recent mentions, drafts replies in the user's tone, sends only after explicit approval
 
 ## How It Works
 
@@ -155,9 +164,9 @@ You can load and test skills independently:
 ## Migration from v1.0
 
 The original monolithic `SKILL.md` (1214 lines) has been refactored into:
-- 11 focused skills (ranging from 150-700 lines each)
+- 13 focused skills (ranging from 150-700 lines each)
 - 1 master router with dynamic discovery
-- Total: ~3500+ lines, but highly maintainable and extensible
+- Total: ~4000+ lines, but highly maintainable and extensible
 
 ### Benefits
 
@@ -179,6 +188,7 @@ All original functionality is preserved:
 - ✅ Monday.com task creation and bi-directional sync
 - ✅ Action item tracking with overdue detection
 - ✅ Interview processing with scorecards
+- ✅ Slack reply drafting and triage
 - ✅ All user commands and workflows
 
 ## Architecture Diagram
@@ -236,6 +246,11 @@ User Command: "process my journal"
 
 ## Version History
 
+- **v3.0.0** (2026-03-15): Added Claude Code native support (`CLAUDE.md`) and slack-reply skill
+  - `CLAUDE.md` auto-loads at session start for Claude Code users
+  - `slack-reply` skill: draft and send Slack replies via MCP with confirmation flow
+  - Updated journal-processor to v2.1 (Notetaker + Slack mention integration)
+  - Updated week-ahead-prep to v1.2 (paste-based calendar approach)
 - **v2.3.0** (2026-02-01): Added calendar-follow-up skill for automatic calendar event creation
   - Auto-invoked during journal processing and week-ahead-prep
   - Creates Google Calendar events via Monday board integration
