@@ -40,6 +40,7 @@ The authoritative skill list is always discovered dynamically via `skills/*.md` 
 | performance-review-summary | "performance review summary", "january review", "june review", "review period" | performance-ratings, dossier-updater, journal-processor |
 | week-ahead-prep | "prep for the week", "week ahead", "plan my week", "sunday prep" | action-tracker, dossier-updater, calendar-follow-up |
 | staff-meeting | "staff meeting", "executive briefing", "staff sync" | action-tracker, dossier-updater, week-ahead-prep |
+| project-tracker | "track project", "project status", "update project", "show projects" | dossier-updater |
 | interview-processor | "show candidates", "show scorecard", "update recommendation" | journal-processor |
 | slack-reply | "reply to slack", "check my slack", "draft a reply", "answer slack" | none |
 

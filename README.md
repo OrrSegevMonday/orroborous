@@ -26,6 +26,7 @@ After cloning and opening in Cursor, type `onboard me` in the chat. The interact
 | `"show candidates"` | Lists all interview candidates with status and recommendation scores |
 | `"sync tasks"` | Bi-directional sync between journal action items and Monday.com |
 | `"schedule follow-up with [person]"` | Creates a calendar reminder in Monday (syncs to Google Calendar) |
+| `"show projects"` / `"track project [name]"` | Surfaces active projects flagged as stale, blocked, missing an owner, or approaching a deadline — update them inline |
 | `"reply to slack"` | Triages recent Slack mentions, drafts replies in your tone, sends after confirmation |
 | `"performance review summary"` | Generates a full review cycle summary with 9-box, trends, and recommendations |
 

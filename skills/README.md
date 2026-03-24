@@ -59,6 +59,14 @@ The system uses a master-router pattern where `../AGENTS.md` (in the parent dire
    - Triggers: "show stakeholder health", "show relationship"
    - Visualizes relationships on 3x3 grid
 
+### Project Management Skills
+
+14. **project-tracker.md** - Surface and update project status, blockers, and deadlines
+    - Dependencies: dossier-updater
+    - Triggers: "track project", "project status", "update project", "show projects"
+    - Auto-runs after dossier-updater during journal processing; flags stale projects, open blockers, approaching deadlines, and missing owners
+    - On-demand: drill into a single project or view a summary table of all active projects
+
 ### Executive & Planning Skills
 
 10. **week-ahead-prep.md** - Strategic week planning briefing
@@ -101,6 +109,8 @@ For complex commands like "process my journal", multiple skills execute in order
 journal-processor (parse entry)
   ↓
 dossier-updater (update dossiers)
+  ↓
+project-tracker (flag stale/blocked projects)
   ↓
 action-tracker (extract action items)
   ↓
@@ -218,6 +228,10 @@ User Command: "process my journal"
    └──────────┬──────────┘
               ↓ (entity updates)
    ┌─────────────────────┐
+   │ project-tracker     │ Flag stale/blocked projects
+   └──────────┬──────────┘
+              ↓ (project flags)
+   ┌─────────────────────┐
    │ action-tracker      │ Extract action items
    └──────────┬──────────┘
               ↓ (action items list)
@@ -246,6 +260,10 @@ User Command: "process my journal"
 
 ## Version History
 
+- **v3.1.0** (2026-03-24): Added project-tracker skill and Rora nickname
+  - `project-tracker` skill: surfaces stale projects, open blockers, approaching deadlines, and missing owners during journal processing and on-demand
+  - `@rora` callout support in journal-processor: tag `@rora` or `@orroborous` anywhere in a journal entry to queue direct instructions
+  - Rora nickname added to PERSONA: Orroborous now goes by Rora
 - **v3.0.0** (2026-03-15): Added Claude Code native support (`CLAUDE.md`) and slack-reply skill
   - `CLAUDE.md` auto-loads at session start for Claude Code users
   - `slack-reply` skill: draft and send Slack replies via MCP with confirmation flow
