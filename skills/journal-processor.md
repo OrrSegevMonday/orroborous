@@ -28,9 +28,10 @@ When invoked:
 
 After journal-processor completes, dependent skills are invoked in order:
 1. **dossier-updater** - Updates team-members/Stakeholders/Projects/Goals dossiers
-2. **action-tracker** - Extracts and tracks action items
-3. **calendar-follow-up** - Creates calendar events for follow-up action items
-4. **monday-integration** - Creates Monday.com tasks from action items
+2. **project-tracker** - Surfaces flagged projects (stale, blocked, no owner, deadline near)
+3. **action-tracker** - Extracts and tracks action items
+4. **calendar-follow-up** - Creates calendar events for follow-up action items
+5. **monday-integration** - Creates Monday.com tasks from action items
 
 ## Step 0: Pull Notetaker Meetings
 
@@ -237,9 +238,23 @@ Split the entry by section headers and bullet points. Identify:
 | Action Item | `- [ ]`, `- [~]`, `- [!]`, "need to", "should", "TODO", under `## Action Items` |
 | Decision | "decided", "agreed", "will do X" |
 | Blocker | "blocked", "waiting on", "stuck" |
+| Orroborous Callout | `@orroborous` or `@rora` (case-insensitive) anywhere in the bullet |
 | Note | Everything else |
 
 ## Step 3: Extract Entities
+
+### Orroborous Callouts
+
+Before extracting other entities, scan every bullet for `@orroborous` or `@rora` (case-insensitive regex: `/@(orroborous|rora)\b/i`).
+
+For each match:
+- **instruction**: the text immediately following the tag to end of clause or bullet (strip the tag itself)
+- **source_text**: the full original bullet
+- **section**: the `##` section it appeared under
+
+Collect all matches into `orroborous_callouts[]` in the output. These are direct instructions — surface them explicitly after processing (see Step 6 below).
+
+### People, Projects, Stakeholders, Goals
 
 For each item, identify:
 
@@ -314,9 +329,29 @@ Return structured JSON for downstream skills:
     "feedback": true,
     "action_items": true,
     "interviews": false
-  }
+  },
+  "orroborous_callouts": [
+    {
+      "type": "orroborous_callout",
+      "instruction": "start tracking it please. ETA is early May",
+      "source_text": "This is a priority project - @rora start tracking it please. ETA is early May",
+      "section": "Meetings"
+    }
+  ]
 }
 ```
+
+## Step 6: Surface Orroborous Callouts
+
+After all processing is complete, if `orroborous_callouts` is non-empty, print them before returning output:
+
+```
+Callouts for me:
+1. [Meetings] start tracking it please. ETA is early May
+2. [Action Items] find the doc for me
+```
+
+For each, ask: **act now**, **convert to action item**, or **ignore**. Handle immediately per response before closing out the skill.
 
 ## Tags to Preserve
 
